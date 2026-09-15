@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="th" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบทดสอบคำศัพท์ภาษาจีน - Chinese Vocabulary Quiz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cnRed: {
+                            50: '#fef2f2',
+                            100: '#ffe1e1',
+                            500: '#de2910',
+                            600: '#c81e09',
+                            700: '#a71404',
+                        },
+                        cnGold: {
+                            400: '#ffde59',
+                            500: '#ffde00',
+                            600: '#e6c700',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Kanit', 'Prompt', 'Noto Sans SC', 'sans-serif'],
+                        chinese: ['Noto Sans SC', 'Ma Shan Zheng', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #f8fafc;
+        }
+        .chinese-text {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        .glow-gold {
+            box-shadow: 0 0 15px rgba(255, 222, 0, 0.4);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #c81e09 0%, #880e04 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        @keyframes pulse-light {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        .animate-pulse-slow {
+            animation: pulse-light 3s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="h-full text-slate-800 flex flex-col justify-between">
+
+    <!-- Navigation Bar -->
+    <header class="gradient-bg text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="showScreen('home-screen')">
+                <div class="w-10 h-10 bg-amber-400 text-red-700 rounded-full flex items-center justify-center font-bold text-xl shadow">
+                    漢
+                </div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-bold leading-tight">แบบทดสอบภาษาจีน</h1>
+                    <p class="text-xs text-amber-200">ระบบคลังคำศัพท์ 53 คำ (106 ข้อ)</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <button onclick="showScreen('vocab-screen')" class="bg-red-800/60 hover:bg-red-800 text-amber-200 text-xs md:text-sm px-3 py-1.5 rounded-lg border border-amber-400/30 transition flex items-center space-x-1">
+                    <i class="fas fa-book-open"></i>
+                    <span class="hidden sm:inline">คลังคำศัพท์</span>
+                </button>
+                <button onclick="showScreen('home-screen')" class="bg-amber-400 hover:bg-amber-300 text-red-900 font-medium text-xs md:text-sm px-3 py-1.5 rounded-lg transition shadow flex items-center space-x-1">
+                    <i class="fas fa-home"></i>
+                    <span class="hidden sm:inline">หน้าแรก</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl w-full mx-auto p-4 flex-grow">
+
+        <!-- 1. HOME SCREEN -->
+        <section id="home-screen" class="space-y-6">
+            <!-- Banner -->
+            <div class="gradient-bg rounded-2xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl font-bold chinese-text select-none">
+                    汉语
+                </div>
+                <div class="relative z-10 max-w-2xl">
+                    <span class="bg-amber-400 text-red-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">
+                        <i class="fas fa-fire mr-1"></i> รวมคำศัพท์จากแบบเรียน 5 บท
+                    </span>
+                    <h2 class="text-2xl md:text-4xl font-bold mb-2">ทดสอบความรู้ภาษาจีน</h2>
+                    <p class="text-amber-100 text-sm md:text-base mb-6 leading-relaxed">
+                        ฝึกฝนพินอิน หลบหลุมพรางเสียงวรรณยุกต์ และแยกแยะตัวอักษรจีนที่จำสับสน! รวมคำศัพท์ 53 คำ สร้างโจทย์คำถาม <strong>106 ข้อ</strong>
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="startQuiz('full')" class="bg-amber-400 hover:bg-amber-300 text-red-950 font-bold px-6 py-3 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 flex items-center space-x-2">
+                            <i class="fas fa-play"></i>
+                            <span>เริ่มทำข้อสอบเต็ม (106 ข้อ)</span>
+                        </button>
+                        <button onclick="startQuiz('quick')" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-medium px-5 py-3 rounded-xl transition flex items-center space-x-2">
+                            <i class="fas fa-bolt text-amber-300"></i>
+                            <span>สุ่มด่วน (20 ข้อ)</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Options / Mode Selection -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Unit Selectors -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+                    <div class="flex items-center space-x-2 text-red-600 font-bold text-lg">
+                        <i class="fas fa-list-ol"></i>
+                        <h3>เลือกทำตามบทเรียน</h3>
+                    </div>
+                    <p class="text-xs text-slate-500">เลือกฝึกฝนเฉพาะบทเรียนที่ต้องการเน้นย้ำ</p>
+
+                    <div class="grid grid-cols-1 gap-2 pt-1">
+                        <button onclick="startQuiz('cat', 'บทที่ 1')" class="text-left px-4 py-2.5 bg-slate-50 hover:bg-red-50 border border-slate-200 hover:border-red-300 rounded-xl transition flex justify-between items-center text-sm font-medium">
+                            <span><i class="fas fa-bookmark text-red-500 mr-2"></i>บทที่ 1: 唐人街, 市场, 耀华力...</span>
+                            <span class="text-xs bg-red-100 text-red-700 font-bold px-2 py-0.5 rounded-full">30 ข้อ</span>
+                        </button>
+                        <button onclick="startQuiz('cat', 'บทที่ 2')" class="text-left px-4 py-2.5 bg-slate-50 hover:bg-red-50 border border-slate-200 hover:border-red-300 rounded-xl transition flex justify-between items-center text-sm font-medium">
+                            <span><i class="fas fa-bookmark text-red-500 mr-2"></i>บทที่ 2: 洋娃娃, 阳台, 打扫...</span>
+                            <span class="text-xs bg-red-100 text-red-700 font-bold px-2 py-0.5 rounded-full">16 ข้อ</span>
+                        </button>
+                        <button onclick="startQuiz('cat', 'บทที่ 3')" class="text-left px-4 py-2.5 bg-slate-50 hover:bg-red-50 border border-slate-200 hover:border-red-300 rounded-xl transition flex justify-between items-center text-sm font-medium">
+                            <span><i class="fas fa-bookmark text-red-500 mr-2"></i>บทที่ 3: 床, 衣柜, 书架, 台灯</span>
+                            <span class="text-xs bg-red-100 text-red-700 font-bold px-2 py-0.5 rounded-full">8 ข้อ</span>
+                        </button>
+                        <button onclick="startQuiz('cat', 'บทที่ 4')" class="text-left px-4 py-2.5 bg-slate-50 hover:bg-red-50 border border-slate-200 hover:border-red-300 rounded-xl transition flex justify-between items-center text-sm font-medium">
+                            <span><i class="fas fa-bookmark text-red-500 mr-2"></i>บทที่ 4: 公寓, 电视, 干净, 游泳池...</span>
+                            <span class="text-xs bg-red-100 text-red-700 font-bold px-2 py-0.5 rounded-full">30 ข้อ</span>
+                        </button>
+                        <button onclick="startQuiz('cat', 'บทที่ 5')" class="text-left px-4 py-2.5 bg-slate-50 hover:bg-red-50 border border-slate-200 hover:border-red-300 rounded-xl transition flex justify-between items-center text-sm font-medium">
+                            <span><i class="fas fa-bookmark text-red-500 mr-2"></i>บทที่ 5: 泰式住宅, 卧室, 厨房, 小区...</span>
+                            <span class="text-xs bg-red-100 text-red-700 font-bold px-2 py-0.5 rounded-full">22 ข้อ</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Features & Flashcard Quick Access -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-2 text-amber-600 font-bold text-lg">
+                            <i class="fas fa-brain"></i>
+                            <h3>จุดเด่นของแบบทดสอบนี้</h3>
+                        </div>
+                        <ul class="text-sm space-y-2.5 text-slate-600">
+                            <li class="flex items-start space-x-2">
+                                <i class="fas fa-check-circle text-emerald-500 mt-0.5"></i>
+                                <span><strong>ทดสอบเปลี่ยนวรรณยุกต์:</strong> ฝึกฟังและแยกแยะวรรณยุกต์พินอิน (1-2-3-4) ที่มักสับสน</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fas fa-check-circle text-emerald-500 mt-0.5"></i>
+                                <span><strong>ทดสอบตัวจีนคล้ายกัน:</strong> สลับขีด สลับส่วนประกอบตัวอักษรจีนให้ท้าทาย</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fas fa-check-circle text-emerald-500 mt-0.5"></i>
+                                <span><strong>มีเสียงอ่านภาษาจีน:</strong> กดฟังเสียงออกเสียงที่ถูกต้องได้ทุกข้อ</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fas fa-check-circle text-emerald-500 mt-0.5"></i>
+                                <span><strong>วิเคราะห์ข้อผิดพลาด:</strong> ทบทวนคำศัพท์เฉพาะข้อที่ตอบผิดทันทีหลังสอบเสร็จ</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100 mt-4">
+                        <button onclick="showScreen('vocab-screen')" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-3 rounded-xl transition flex items-center justify-center space-x-2">
+                            <i class="fas fa-book text-red-600"></i>
+                            <span>เปิดดูคลังคำศัพท์ทั้งหมด (53 คำ)</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. QUIZ SCREEN -->
+        <section id="quiz-screen" class="hidden space-y-5">
+            <!-- Header Progress -->
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+                <div class="flex justify-between items-center text-sm font-semibold">
+                    <div class="flex items-center space-x-2">
+                        <span id="quiz-badge" class="bg-red-100 text-red-700 px-2.5 py-0.5 rounded-full text-xs font-bold">
+                            โหมดเต็ม (106 ข้อ)
+                        </span>
+                        <span class="text-slate-500">ข้อที่ <span id="current-q-num" class="text-red-600 font-bold text-base">1</span> / <span id="total-q-num">106</span></span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="text-emerald-600 font-bold flex items-center space-x-1">
+                            <i class="fas fa-check-circle"></i>
+                            <span id="score-count">0</span>
+                        </div>
+                        <div class="text-amber-500 font-bold flex items-center space-x-1">
+                            <i class="fas fa-fire"></i>
+                            <span id="streak-count">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="bg-gradient-to-r from-red-500 to-amber-400 h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 space-y-6 text-center relative">
+                
+                <!-- Category Tag -->
+                <div id="question-cat" class="text-xs font-bold text-slate-400 uppercase tracking-widest">
+                    บทที่ 1
+                </div>
+
+                <!-- Question Prompt -->
+                <div class="space-y-3">
+                    <p id="question-instruction" class="text-slate-500 font-medium text-sm md:text-base">
+                        โปรดเลือกคำตอบที่ถูกต้อง
+                    </p>
+                    
+                    <div class="py-2 flex items-center justify-center space-x-3">
+                        <span id="question-text" class="text-4xl md:text-5xl font-bold text-slate-800 chinese-text tracking-wide">
+                            唐人街
+                        </span>
+                        <button id="audio-btn" onclick="speakCurrentWord()" class="w-10 h-10 bg-amber-100 hover:bg-amber-200 text-amber-800 rounded-full flex items-center justify-center transition shadow-sm" title="ฟังเสียงอ่าน">
+                            <i class="fas fa-volume-high"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Options Grid -->
+                <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-left pt-2">
+                    <!-- Options populated by JS -->
+                </div>
+
+                <!-- Feedback Area (Hidden by default) -->
+                <div id="feedback-box" class="hidden p-4 rounded-xl text-left border space-y-2 animate-fade-in">
+                    <div class="flex items-center space-x-2 font-bold text-base" id="feedback-title">
+                        <!-- Correct/Incorrect Icon & Title -->
+                    </div>
+                    <p id="feedback-detail" class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                        <!-- Detailed Explanation -->
+                    </p>
+                    <div class="pt-2 flex justify-end">
+                        <button id="next-btn" onclick="nextQuestion()" class="bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2 rounded-xl transition shadow flex items-center space-x-2 text-sm">
+                            <span>ข้อถัดไป</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 3. RESULT SCREEN -->
+        <section id="result-screen" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 text-center space-y-6">
+                <div class="w-20 h-20 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-4xl shadow-inner">
+                    <i class="fas fa-trophy"></i>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-slate-800">เสร็จสิ้นแบบทดสอบ!</h2>
+                    <p class="text-slate-500 text-sm mt-1">นี่คือสรุปผลการทดสอบความรู้ของคุณ</p>
+                </div>
+
+                <!-- Score Display -->
+                <div class="gradient-bg text-white rounded-2xl p-6 max-w-sm mx-auto shadow-lg space-y-2">
+                    <span class="text-xs uppercase tracking-widest text-amber-200 font-bold">คะแนนรวมของคุณ</span>
+                    <div class="text-5xl font-black">
+                        <span id="final-score">0</span> / <span id="final-total">106</span>
+                    </div>
+                    <p id="final-percentage" class="text-amber-200 font-semibold text-lg">0%</p>
+                    <div id="grade-badge" class="inline-block bg-amber-400 text-red-950 text-xs font-bold px-3 py-1 rounded-full uppercase">
+                        ระดับ: -
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap justify-center gap-3 pt-2">
+                    <button onclick="startQuiz('full')" class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-2.5 rounded-xl transition shadow flex items-center space-x-2">
+                        <i class="fas fa-rotate-right"></i>
+                        <span>ทำใหม่อีกครั้ง</span>
+                    </button>
+                    <button id="retry-mistakes-btn" onclick="startMistakesQuiz()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-6 py-2.5 rounded-xl transition shadow flex items-center space-x-2">
+                        <i class="fas fa-triangle-exclamation"></i>
+                        <span>ทำซ้ำเฉพาะข้อที่ผิด (<span id="mistakes-count-badge">0</span>)</span>
+                    </button>
+                    <button onclick="showScreen('home-screen')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-5 py-2.5 rounded-xl transition">
+                        กลับหน้าแรก
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mistakes & Review Section -->
+            <div id="review-section" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center space-x-2">
+                    <i class="fas fa-list-check text-red-600"></i>
+                    <span>รายการคำถามที่ทำผิด / ทบทวน</span>
+                </h3>
+                
+                <div id="review-list" class="space-y-3 max-h-96 overflow-y-auto pr-2">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. VOCABULARY LIST SCREEN -->
+        <section id="vocab-screen" class="hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800 flex items-center space-x-2">
+                        <i class="fas fa-book-bookmark text-red-600"></i>
+                        <span>คลังคำศัพท์ทั้งหมด (53 คำ)</span>
+                    </h2>
+                    <p class="text-slate-500 text-sm mt-0.5">รวมรวบคำศัพท์ทั้งหมดจากบทเรียน 1-5 พร้อมเสียงอ่าน</p>
+                </div>
+
+                <!-- Filter & Search -->
+                <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                    <input type="text" id="vocab-search" oninput="filterVocab()" placeholder="ค้นหาคำศัพท์ / พินอิน / คำแปล..." class="px-3 py-2 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-red-500 w-full sm:w-60">
+                    <select id="vocab-cat-filter" onchange="filterVocab()" class="px-3 py-2 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-red-500">
+                        <option value="ALL">ทุกบทเรียน</option>
+                        <option value="บทที่ 1">บทที่ 1</option>
+                        <option value="บทที่ 2">บทที่ 2</option>
+                        <option value="บทที่ 3">บทที่ 3</option>
+                        <option value="บทที่ 4">บทที่ 4</option>
+                        <option value="บทที่ 5">บทที่ 5</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Vocab Grid -->
+            <div id="vocab-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <!-- Cards generated by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-8 text-center text-xs text-slate-500">
+        <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <span>สื่อการเรียนการสอนภาษาจีนแบบตอบโต้ (Interactive Chinese Vocabulary Quiz)</span>
+            <span class="text-slate-400">คำศัพท์ 53 คำ | 106 ข้อสอบสลับตัวเลือก</span>
+        </div>
+    </footer>
+
+    <script>
+        /*
+         * Chinese Vocabulary Database (53 Vocabulary Items from Images)
+         * Categories: บทที่ 1, บทที่ 2, บทที่ 3, บทที่ 4, บทที่ 5
+         */
+        const vocabList = [
+            // Image 1: บทที่ 1
+            { id: 1, hanzi: "唐人街", pinyin: "Táng rén jiē", thai: "ไชน่าทาวน์ (ชื่อเฉพาะ)", cat: "บทที่ 1", pinyinTricks: ["Tāng rén jiě", "Táng rěn jiē", "Tàng rén jiē"], hanziTricks: ["唐人街", "广人街", "唐入街"] },
+            { id: 2, hanzi: "南美书局", pinyin: "Nán měi shū jú", thai: "ร้านหนังสืออานามี (ชื่อเฉพาะ)", cat: "บทที่ 1", pinyinTricks: ["Nǎn měi shū jú", "Nán mèi shū jú", "Nān měi shū jū"], hanziTricks: ["南美书局", "南北书局", "南美书句"] },
+            { id: 3, hanzi: "市场", pinyin: "shì chǎng", thai: "ตลาด", cat: "บทที่ 1", pinyinTricks: ["shí cháng", "shī chǎng", "shì cháng"], hanziTricks: ["市场", "市长", "柿场"] },
+            { id: 4, hanzi: "金行", pinyin: "jīn háng", thai: "ร้านขายทอง", cat: "บทที่ 1", pinyinTricks: ["jǐn háng", "jīn xíng", "jìn háng"], hanziTricks: ["金行", "全行", "金幸"] },
+            { id: 5, hanzi: "舞龙", pinyin: "wǔ lóng", thai: "เชิดมังกร", cat: "บทที่ 1", pinyinTricks: ["wú lóng", "wǔ lǒng", "wù lóng"], hanziTricks: ["舞龙", "舞尤", "无龙"] },
+            { id: 6, hanzi: "舞狮", pinyin: "wǔ shī", thai: "เชิดสิงโต", cat: "บทที่ 1", pinyinTricks: ["wú shī", "wǔ shí", "wǔ shì"], hanziTricks: ["舞狮", "舞师", "舞帅"] },
+            { id: 7, hanzi: "外府", pinyin: "wài fǔ", thai: "ต่างจังหวัด", cat: "บทที่ 1", pinyinTricks: ["wái fǔ", "wài fú", "wāi fǔ"], hanziTricks: ["外府", "处府", "外付"] },
+            { id: 8, hanzi: "空气", pinyin: "kōng qì", thai: "อากาศ", cat: "บทที่ 1", pinyinTricks: ["kǒng qì", "kōng qí", "kòng qì"], hanziTricks: ["空气", "空乞", "控气"] },
+            { id: 9, hanzi: "方便", pinyin: "fāng biàn", thai: "สะดวก", cat: "บทที่ 1", pinyinTricks: ["fáng biàn", "fāng biǎn", "fāng biān"], hanziTricks: ["方便", "方使", "芳便"] },
+            { id: 10, hanzi: "附近", pinyin: "fù jìn", thai: "ใกล้ๆ", cat: "บทที่ 1", pinyinTricks: ["fū jìn", "fù jīn", "fú jìn"], hanziTricks: ["附近", "符近", "附斤"] },
+            { id: 11, hanzi: "耀华力", pinyin: "Yào huá lì", thai: "เยาวราช (ชื่อเฉพาะ)", cat: "บทที่ 1", pinyinTricks: ["Yāo huá lì", "Yào huá lí", "Yáo huá lì"], hanziTricks: ["耀华力", "耀华刀", "跃华力"] },
+            { id: 12, hanzi: "马路", pinyin: "mǎ lù", thai: "ถนน", cat: "บทที่ 1", pinyinTricks: ["mā lù", "mǎ lú", "má lù"], hanziTricks: ["马路", "妈路", "马各"] },
+            { id: 13, hanzi: "两边", pinyin: "liǎng biān", thai: "สองข้างทาง", cat: "บทที่ 1", pinyinTricks: ["liáng biān", "liǎng biǎn", "liàng biān"], hanziTricks: ["两边", "俩边", "雨边"] },
+            { id: 14, hanzi: "春节", pinyin: "Chūn jié", thai: "วันตรุษจีน", cat: "บทที่ 1", pinyinTricks: ["Chún jié", "Chūn jiě", "Chùn jié"], hanziTricks: ["春节", "椿节", "春洁"] },
+            { id: 15, hanzi: "表演", pinyin: "biǎo yǎn", thai: "แสดง / การแสดง", cat: "บทที่ 1", pinyinTricks: ["biáo yǎn", "biǎo yán", "biāo yǎn"], hanziTricks: ["表演", "表演", "表衍"] },
+
+            // Image 2: บทที่ 2
+            { id: 16, hanzi: "洋娃娃", pinyin: "yáng wá wa", thai: "ตุ๊กตา", cat: "บทที่ 2", pinyinTricks: ["yāng wá wa", "yáng wǎ wa", "yàng wá wa"], hanziTricks: ["洋娃娃", "羊娃娃", "洋蛙蛙"] },
+            { id: 17, hanzi: "阳台", pinyin: "yáng tái", thai: "ระเบียง", cat: "บทที่ 2", pinyinTricks: ["yāng tái", "yáng tǎi", "yàng tái"], hanziTricks: ["阳台", "阴台", "阳合"] },
+            { id: 18, hanzi: "打扫", pinyin: "dǎ sǎo", thai: "ปัดกวาด / เก็บกวาด", cat: "บทที่ 2", pinyinTricks: ["dá sǎo", "dǎ sāo", "dà sǎo"], hanziTricks: ["打扫", "打抓", "才扫"] },
+            { id: 19, hanzi: "路上", pinyin: "lù shang", thai: "บนท้องถนน / ตามทาง", cat: "บทที่ 2", pinyinTricks: ["lú shang", "lù shàng", "lū shang"], hanziTricks: ["路上", "路土", "各上"] },
+            { id: 20, hanzi: "小心", pinyin: "xiǎo xīn", thai: "ระมัดระวัง", cat: "บทที่ 2", pinyinTricks: ["xiáo xīn", "xiǎo xīn", "xiào xīn"], hanziTricks: ["小心", "少心", "小必"] },
+            { id: 21, hanzi: "又……又……", pinyin: "yòu......yòu......", thai: "ทั้ง......และ......", cat: "บทที่ 2", pinyinTricks: ["yóu......yóu......", "yōu......yōu......", "yǒu......yǒu......"], hanziTricks: ["又……又……", "双……双……", "友……友……"] },
+            { id: 22, hanzi: "放", pinyin: "fàng", thai: "วาง / ใส่", cat: "บทที่ 2", pinyinTricks: ["fáng", "fāng", "fǎng"], hanziTricks: ["放", "方", "收"] },
+            { id: 23, hanzi: "有趣", pinyin: "yǒu qù", thai: "สนุก / น่าสนใจ", cat: "บทที่ 2", pinyinTricks: ["yóu qù", "yǒu qū", "yōu qù"], hanziTricks: ["有趣", "有取", "友趣"] },
+
+            // Image 3: บทที่ 3
+            { id: 24, hanzi: "床", pinyin: "chuáng", thai: "เตียงนอน", cat: "บทที่ 3", pinyinTricks: ["chuāng", "chuǎng", "chuàng"], hanziTricks: ["床", "麻", "房"] },
+            { id: 25, hanzi: "衣柜", pinyin: "yī guì", thai: "ตู้เสื้อผ้า", cat: "บทที่ 3", pinyinTricks: ["yí guì", "yī guǐ", "yì guì"], hanziTricks: ["衣柜", "依柜", "衣巨"] },
+            { id: 26, hanzi: "书架", pinyin: "shū jià", thai: "ชั้นวางหนังสือ", cat: "บทที่ 3", pinyinTricks: ["shú jià", "shū jiā", "shǔ jià"], hanziTricks: ["书架", "书加", "书驾"] },
+            { id: 27, hanzi: "台灯", pinyin: "tái dēng", thai: "โคมไฟตั้งโต๊ะ", cat: "บทที่ 3", pinyinTricks: ["tāi dēng", "tái děng", "tài dēng"], hanziTricks: ["台灯", "合灯", "台丁"] },
+
+            // Image 4: บทที่ 4
+            { id: 28, hanzi: "公寓", pinyin: "gōng yù", thai: "หอพัก / แฟลต / อพาร์ตเมนต์", cat: "บทที่ 4", pinyinTricks: ["gǒng yù", "gōng yú", "gòng yù"], hanziTricks: ["公寓", "公谷", "公裕"] },
+            { id: 29, hanzi: "茶几", pinyin: "chá jī", thai: "โต๊ะน้ำชา", cat: "บทที่ 4", pinyinTricks: ["chǎ jī", "chá jí", "chā jī"], hanziTricks: ["茶几", "茶九", "茶九"] },
+            { id: 30, hanzi: "电视", pinyin: "diàn shì", thai: "โทรทัศน์", cat: "บทที่ 4", pinyinTricks: ["diān shì", "diàn shí", "diǎn shì"], hanziTricks: ["电视", "电视", "电氏"] },
+            { id: 31, hanzi: "电话", pinyin: "diàn huà", thai: "โทรศัพท์", cat: "บทที่ 4", pinyinTricks: ["diān huà", "diàn huá", "diǎn huà"], hanziTricks: ["电话", "电活", "电华"] },
+            { id: 32, hanzi: "冰箱", pinyin: "bīng xiāng", thai: "ตู้เย็น", cat: "บทที่ 4", pinyinTricks: ["bǐng xiāng", "bīng xiáng", "bìng xiāng"], hanziTricks: ["冰箱", "冰相", "并箱"] },
+            { id: 33, hanzi: "洗衣机", pinyin: "xǐ yī jī", thai: "เครื่องซักผ้า", cat: "บทที่ 4", pinyinTricks: ["xí yī jī", "xǐ yī jí", "xī yī jī"], hanziTricks: ["洗衣机", "洗衣肌", "洗衣基"] },
+            { id: 34, hanzi: "告诉", pinyin: "gào su", thai: "บอก", cat: "บทที่ 4", pinyinTricks: ["gāo su", "gào sù", "gǎo su"], hanziTricks: ["告诉", "告诉", "高诉"] },
+            { id: 35, hanzi: "干净", pinyin: "gān jìng", thai: "สะอาด", cat: "บทที่ 4", pinyinTricks: ["gǎn jìng", "gān jing", "gàn jìng"], hanziTricks: ["干净", "千净", "干浄"] },
+            { id: 36, hanzi: "安全", pinyin: "ān quán", thai: "ปลอดภัย", cat: "บทที่ 4", pinyinTricks: ["án quán", "ān quán", "àn quán"], hanziTricks: ["安全", "按全", "安金"] },
+            { id: 37, hanzi: "层", pinyin: "céng", thai: "ชั้น", cat: "บทที่ 4", pinyinTricks: ["cēng", "cěng", "cèng"], hanziTricks: ["层", "曾", "局"] },
+            { id: 38, hanzi: "游泳池", pinyin: "yóu yǒng chí", thai: "สระว่ายน้ำ", cat: "บทที่ 4", pinyinTricks: ["yōu yǒng chí", "yóu yōng chí", "yóu yǒng chí"], hanziTricks: ["游泳池", "游永池", "游泳也"] },
+            { id: 39, hanzi: "座", pinyin: "zuò", thai: "ตึก / หลัง (คำลักษณนาม)", cat: "บทที่ 4", pinyinTricks: ["zuō", "zuó", "zuǒ"], hanziTricks: ["座", "坐", "庄"] },
+            { id: 40, hanzi: "号", pinyin: "hào", thai: "เลขที่", cat: "บทที่ 4", pinyinTricks: ["háo", "hāo", "hǎo"], hanziTricks: ["号", "口", "叫"] },
+            { id: 41, hanzi: "脏", pinyin: "zāng", thai: "สกปรก", cat: "บทที่ 4", pinyinTricks: ["záng", "zǎng", "zàng"], hanziTricks: ["脏", "庄", "妆"] },
+            { id: 42, hanzi: "危险", pinyin: "wēi xiǎn", thai: "อันตราย", cat: "บทที่ 4", pinyinTricks: ["wéi xiǎn", "wēi xián", "wèi xiǎn"], hanziTricks: ["危险", "微险", "危脸"] },
+
+            // Image 5: บทที่ 5
+            { id: 43, hanzi: "泰式住宅", pinyin: "Tài shì zhù zhái", thai: "บ้านเรือนไทย", cat: "บทที่ 5", pinyinTricks: ["Tāi shì zhù zhái", "Tài shí zhù zhái", "Tài shì zhū zhái"], hanziTricks: ["泰式住宅", "秦式住宅", "泰试住宅"] },
+            { id: 44, hanzi: "卧室", pinyin: "wò shì", thai: "ห้องนอน", cat: "บทที่ 5", pinyinTricks: ["wō shì", "wò shí", "wó shì"], hanziTricks: ["卧室", "臣室", "卧至"] },
+            { id: 45, hanzi: "客厅", pinyin: "kè tīng", thai: "ห้องรับแข克 / ห้องรับแขก", cat: "บทที่ 5", pinyinTricks: ["kě tīng", "kè tíng", "kè tǐng"], hanziTricks: ["客厅", "各厅", "客停"] },
+            { id: 46, hanzi: "花园", pinyin: "huā yuán", thai: "สวนดอกไม้", cat: "บทที่ 5", pinyinTricks: ["huá yuán", "huā yuǎn", "huà yuán"], hanziTricks: ["花园", "华园", "花元"] },
+            { id: 47, hanzi: "厨房", pinyin: "chú fáng", thai: "ห้องครัว", cat: "บทที่ 5", pinyinTricks: ["chū fáng", "chú fǎng", "chù fáng"], hanziTricks: ["厨房", "厨房", "厨放"] },
+            { id: 48, hanzi: "厕所", pinyin: "cè suǒ", thai: "ห้องน้ำ / สุขา", cat: "บทที่ 5", pinyinTricks: ["cē suǒ", "cè suō", "cé suǒ"], hanziTricks: ["厕所", "侧所", "厕所"] },
+            { id: 49, hanzi: "呢", pinyin: "ne", thai: "นะ / แหน่ะ (คำเสริมน้ำเสียง)", cat: "บทที่ 5", pinyinTricks: ["ní", "nè", "nē"], hanziTricks: ["呢", "尼", "泥"] },
+            { id: 50, hanzi: "快点儿", pinyin: "kuài diǎnr", thai: "เร็วหน่อย / รีบหน่อย", cat: "บทที่ 5", pinyinTricks: ["kuāi diǎnr", "kuài diān3", "kuái diǎnr"], hanziTricks: ["快点儿", "块点儿", "快点几"] },
+            { id: 51, hanzi: "小区", pinyin: "xiǎo qū", thai: "หมู่บ้าน", cat: "บทที่ 5", pinyinTricks: ["xiáo qū", "xiǎo qú", "xiào qū"], hanziTricks: ["小区", "少区", "小凶"] },
+            { id: 52, hanzi: "屋顶", pinyin: "wū dǐng", thai: "หลังคา", cat: "บทที่ 5", pinyinTricks: ["wú dǐng", "wū dìng", "wù dǐng"], hanziTricks: ["屋顶", "屋顶", "至顶"] },
+            { id: 53, hanzi: "间", pinyin: "jiān", thai: "ห้อง / หลัง (คำลักษณนาม)", cat: "บทที่ 5", pinyinTricks: ["jián", "jiǎn", "jiàn"], hanziTricks: ["间", "问", "简"] }
+        ];
+
+        // State Variables
+        let questionsBank = [];
+        let currentQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let streak = 0;
+        let userAnswers = [];
+        let incorrectQuestions = [];
+
+        // Generate Question Bank (53 vocab x 2 = 106 Total Questions)
+        function generateAllQuestions() {
+            let qArray = [];
+
+            vocabList.forEach((item) => {
+                // TYPE 1: Given Chinese Hanzi -> Choose correct Pinyin (with tricky tone options) OR Thai Meaning
+                const isType1Pinyin = Math.random() > 0.3; // 70% Pinyin tones, 30% Thai meaning
+                if (isType1Pinyin) {
+                    // Create Pinyin choices (1 correct + 3 tricky tone distractors)
+                    let distractors = item.pinyinTricks.slice(0, 3);
+                    let options = [item.pinyin, ...distractors];
+                    options = shuffleArray(options);
+
+                    qArray.push({
+                        vocabId: item.id,
+                        cat: item.cat,
+                        type: "HANZI_TO_PINYIN",
+                        prompt: item.hanzi,
+                        speechText: item.hanzi,
+                        instruction: "เลือกพินอิน (Pinyin) และเสียงวรรณยุกต์ที่ถูกต้องของตัวอักษรจีนนี้",
+                        correctAnswer: item.pinyin,
+                        options: options,
+                        explanation: `คำว่า "${item.hanzi}" ออกเสียงพินอินว่า "${item.pinyin}" แปลว่า "${item.thai}"`
+                    });
+                } else {
+                    // Create Thai Meaning choices
+                    let otherThais = vocabList.filter(v => v.id !== item.id).map(v => v.thai);
+                    otherThais = shuffleArray(otherThais).slice(0, 3);
+                    let options = shuffleArray([item.thai, ...otherThais]);
+
+                    qArray.push({
+                        vocabId: item.id,
+                        cat: item.cat,
+                        type: "HANZI_TO_THAI",
+                        prompt: item.hanzi,
+                        speechText: item.hanzi,
+                        instruction: "เลือกความหมายภาษาไทยที่ถูกต้องของตัวอักษรจีนนี้",
+                        correctAnswer: item.thai,
+                        options: options,
+                        explanation: `"${item.hanzi}" (${item.pinyin}) แปลว่า "${item.thai}"`
+                    });
+                }
+
+                // TYPE 2: Given Pinyin or Thai -> Choose correct Chinese Hanzi (with tricky Hanzi distractors)
+                const isType2PinyinPrompt = Math.random() > 0.5;
+                let promptText = isType2PinyinPrompt ? item.pinyin : item.thai;
+                let instructionText = isType2PinyinPrompt 
+                    ? `เลือกตัวอักษรจีน (Hanzi) ที่ตรงกับพินอิน "${item.pinyin}"` 
+                    : `เลือกตัวอักษรจีน (Hanzi) ที่ตรงกับคำแปล "${item.thai}"`;
+
+                // Hanzi options (1 correct + 3 distractors)
+                let hanziDistractors = [];
+                if (item.hanziTricks && item.hanziTricks.length >= 3) {
+                    hanziDistractors = item.hanziTricks.filter(h => h !== item.hanzi).slice(0, 3);
+                }
+                while (hanziDistractors.length < 3) {
+                    let randH = vocabList[Math.floor(Math.random() * vocabList.length)].hanzi;
+                    if (randH !== item.hanzi && !hanziDistractors.includes(randH)) {
+                        hanziDistractors.push(randH);
+                    }
+                }
+
+                let options = shuffleArray([item.hanzi, ...hanziDistractors]);
+
+                qArray.push({
+                    vocabId: item.id,
+                    cat: item.cat,
+                    type: "PROMPT_TO_HANZI",
+                    prompt: promptText,
+                    speechText: item.hanzi,
+                    instruction: instructionText,
+                    correctAnswer: item.hanzi,
+                    options: options,
+                    explanation: `คำตอบที่ถูกต้องคือ "${item.hanzi}" (พินอิน: ${item.pinyin} - คำแปล: ${item.thai})`
+                });
+            });
+
+            return qArray;
+        }
+
+        // Utility: Shuffle array
+        function shuffleArray(array) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // Text-to-Speech in Chinese
+        function speakCurrentWord() {
+            if (!('speechSynthesis' in window)) return;
+            const q = currentQuestions[currentIndex];
+            if (!q || !q.speechText) return;
+
+            window.speechSynthesis.cancel(); // Stop current
+            const utterance = new SpeechSynthesisUtterance(q.speechText);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.8; // slightly slower for learners
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function speakText(text) {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.8;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function showScreen(screenId) {
+            ['home-screen', 'quiz-screen', 'result-screen', 'vocab-screen'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(screenId).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (screenId === 'vocab-screen') {
+                renderVocabGrid();
+            }
+        }
+
+        function startQuiz(mode, param) {
+            questionsBank = generateAllQuestions();
+            
+            if (mode === 'full') {
+                currentQuestions = shuffleArray(questionsBank); // All 106 questions
+                document.getElementById('quiz-badge').innerText = `โหมดเต็ม (${currentQuestions.length} ข้อ)`;
+            } else if (mode === 'quick') {
+                currentQuestions = shuffleArray(questionsBank).slice(0, 20);
+                document.getElementById('quiz-badge').innerText = `โหมดสุ่มด่วน (20 ข้อ)`;
+            } else if (mode === 'cat') {
+                currentQuestions = questionsBank.filter(q => q.cat === param);
+                currentQuestions = shuffleArray(currentQuestions);
+                document.getElementById('quiz-badge').innerText = `${param} (${currentQuestions.length} ข้อ)`;
+            }
+
+            currentIndex = 0;
+            score = 0;
+            streak = 0;
+            userAnswers = [];
+            incorrectQuestions = [];
+
+            updateQuizUIHeader();
+            showQuestion();
+            showScreen('quiz-screen');
+        }
+
+        function startMistakesQuiz() {
+            if (incorrectQuestions.length === 0) return;
+            currentQuestions = shuffleArray(incorrectQuestions);
+            document.getElementById('quiz-badge').innerText = `ทบทวนข้อที่ผิด (${currentQuestions.length} ข้อ)`;
+
+            currentIndex = 0;
+            score = 0;
+            streak = 0;
+            userAnswers = [];
+            incorrectQuestions = [];
+
+            updateQuizUIHeader();
+            showQuestion();
+            showScreen('quiz-screen');
+        }
+
+        function updateQuizUIHeader() {
+            document.getElementById('current-q-num').innerText = currentIndex + 1;
+            document.getElementById('total-q-num').innerText = currentQuestions.length;
+            document.getElementById('score-count').innerText = score;
+            document.getElementById('streak-count').innerText = streak;
+
+            const progressPct = ((currentIndex) / currentQuestions.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPct}%`;
+        }
+
+        function showQuestion() {
+            const q = currentQuestions[currentIndex];
+            updateQuizUIHeader();
+
+            document.getElementById('question-cat').innerText = q.cat;
+            document.getElementById('question-instruction').innerText = q.instruction;
+            document.getElementById('question-text').innerText = q.prompt;
+
+            // Hide feedback box
+            const feedbackBox = document.getElementById('feedback-box');
+            feedbackBox.classList.add('hidden');
+            feedbackBox.className = "hidden p-4 rounded-xl text-left border space-y-2 animate-fade-in";
+
+            // Render Options
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            const optionLabels = ['A', 'B', 'C', 'D'];
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 font-medium text-slate-800 transition flex items-center space-x-3 text-base md:text-lg focus:outline-none option-btn";
+                btn.onclick = () => selectOption(opt, btn);
+
+                btn.innerHTML = `
+                    <span class="w-8 h-8 rounded-lg bg-white border border-slate-300 flex items-center justify-center font-bold text-slate-500 text-sm shadow-sm shrink-0">
+                        ${optionLabels[idx]}
+                    </span>
+                    <span class="chinese-text font-semibold flex-grow">${opt}</span>
+                `;
+
+                container.appendChild(btn);
+            });
+
+            // Automatically speak if Hanzi prompt
+            if (q.type === 'HANZI_TO_PINYIN' || q.type === 'HANZI_TO_THAI') {
+                setTimeout(() => speakCurrentWord(), 200);
+            }
+        }
+
+        function selectOption(selectedOpt, btnElement) {
+            const q = currentQuestions[currentIndex];
+            const isCorrect = selectedOpt === q.correctAnswer;
+
+            // Disable all option buttons
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('cursor-not-allowed', 'opacity-75');
+            });
+
+            const feedbackBox = document.getElementById('feedback-box');
+            const feedbackTitle = document.getElementById('feedback-title');
+            const feedbackDetail = document.getElementById('feedback-detail');
+
+            if (isCorrect) {
+                score++;
+                streak++;
+                btnElement.classList.remove('bg-slate-50', 'border-slate-200');
+                btnElement.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900', 'ring-2', 'ring-emerald-400');
+                
+                feedbackBox.classList.remove('hidden');
+                feedbackBox.classList.add('bg-emerald-50', 'border-emerald-300', 'text-emerald-900');
+                feedbackTitle.innerHTML = `<i class="fas fa-circle-check text-emerald-600 text-xl"></i><span>ถูกต้อง! (Correct)</span>`;
+            } else {
+                streak = 0;
+                incorrectQuestions.push(q);
+
+                btnElement.classList.remove('bg-slate-50', 'border-slate-200');
+                btnElement.classList.add('bg-rose-50', 'border-rose-500', 'text-rose-900', 'ring-2', 'ring-rose-400');
+
+                // Highlight correct button
+                allBtns.forEach(b => {
+                    if (b.innerText.includes(q.correctAnswer)) {
+                        b.classList.remove('bg-slate-50', 'border-slate-200');
+                        b.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900');
+                    }
+                });
+
+                feedbackBox.classList.remove('hidden');
+                feedbackBox.classList.add('bg-rose-50', 'border-rose-300', 'text-rose-900');
+                feedbackTitle.innerHTML = `<i class="fas fa-circle-xmark text-rose-600 text-xl"></i><span>ยังไม่ถูกต้อง</span>`;
+            }
+
+            feedbackDetail.innerText = q.explanation;
+            document.getElementById('score-count').innerText = score;
+            document.getElementById('streak-count').innerText = streak;
+
+            userAnswers.push({
+                question: q,
+                selected: selectedOpt,
+                isCorrect: isCorrect
+            });
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex < currentQuestions.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('final-score').innerText = score;
+            document.getElementById('final-total').innerText = currentQuestions.length;
+
+            const percentage = Math.round((score / currentQuestions.length) * 100);
+            document.getElementById('final-percentage').innerText = `${percentage}%`;
+
+            const badge = document.getElementById('grade-badge');
+            if (percentage >= 90) {
+                badge.innerText = "ระดับ: S (ยอดเยี่ยมมาก!)";
+                badge.className = "inline-block bg-emerald-400 text-emerald-950 text-xs font-bold px-3 py-1 rounded-full uppercase";
+            } else if (percentage >= 75) {
+                badge.innerText = "ระดับ: A (ดีมาก)";
+                badge.className = "inline-block bg-amber-400 text-red-950 text-xs font-bold px-3 py-1 rounded-full uppercase";
+            } else if (percentage >= 50) {
+                badge.innerText = "ระดับ: B (ผ่านเกณฑ์)";
+                badge.className = "inline-block bg-blue-400 text-blue-950 text-xs font-bold px-3 py-1 rounded-full uppercase";
+            } else {
+                badge.innerText = "ระดับ: C (ต้องฝึกฝนเพิ่มเติม)";
+                badge.className = "inline-block bg-rose-400 text-rose-950 text-xs font-bold px-3 py-1 rounded-full uppercase";
+            }
+
+            // Retry Mistakes button setup
+            const mistakesBtn = document.getElementById('retry-mistakes-btn');
+            const mistakesCountBadge = document.getElementById('mistakes-count-badge');
+            mistakesCountBadge.innerText = incorrectQuestions.length;
+
+            if (incorrectQuestions.length > 0) {
+                mistakesBtn.classList.remove('hidden');
+            } else {
+                mistakesBtn.classList.add('hidden');
+            }
+
+            // Populate Review List
+            const reviewList = document.getElementById('review-list');
+            reviewList.innerHTML = '';
+
+            userAnswers.forEach((ans, i) => {
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-xl border ${ans.isCorrect ? 'bg-emerald-50/50 border-emerald-200' : 'bg-rose-50/50 border-rose-200'} flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-sm`;
+
+                card.innerHTML = `
+                    <div class="space-y-1">
+                        <div class="flex items-center space-x-2 font-bold">
+                            <span class="${ans.isCorrect ? 'text-emerald-600' : 'text-rose-600'}">
+                                ${ans.isCorrect ? '<i class="fas fa-check"></i>' : '<i class="fas fa-xmark"></i>'} ข้อ ${i + 1}
+                            </span>
+                            <span class="chinese-text text-base text-slate-800">${ans.question.prompt}</span>
+                            <button onclick="speakText('${ans.question.speechText}')" class="text-xs bg-slate-200 hover:bg-slate-300 p-1 rounded-full text-slate-700">
+                                <i class="fas fa-volume-high"></i>
+                            </button>
+                        </div>
+                        <p class="text-xs text-slate-600">${ans.question.explanation}</p>
+                    </div>
+                    <div class="text-xs font-semibold ${ans.isCorrect ? 'text-emerald-700' : 'text-rose-700'}">
+                        คุณตอบ: ${ans.selected}
+                    </div>
+                `;
+
+                reviewList.appendChild(card);
+            });
+
+            showScreen('result-screen');
+        }
+
+        function renderVocabGrid() {
+            const container = document.getElementById('vocab-grid');
+            const searchText = document.getElementById('vocab-search').value.toLowerCase().trim();
+            const catFilter = document.getElementById('vocab-cat-filter').value;
+
+            container.innerHTML = '';
+
+            const filtered = vocabList.filter(item => {
+                const matchesCat = (catFilter === 'ALL' || item.cat === catFilter);
+                const matchesSearch = item.hanzi.toLowerCase().includes(searchText) ||
+                                      item.pinyin.toLowerCase().includes(searchText) ||
+                                      item.thai.toLowerCase().includes(searchText);
+                return matchesCat && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400">ไม่พบคำศัพท์ที่ค้นหา</div>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow transition space-y-2 flex flex-col justify-between";
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded-md">${item.cat}</span>
+                        <button onclick="speakText('${item.hanzi}')" class="w-8 h-8 bg-amber-100 hover:bg-amber-200 text-amber-800 rounded-full flex items-center justify-center transition" title="ฟังเสียง">
+                            <i class="fas fa-volume-high text-xs"></i>
+                        </button>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold chinese-text text-slate-800">${item.hanzi}</div>
+                        <div class="text-sm font-semibold text-amber-600">${item.pinyin}</div>
+                        <div class="text-xs text-slate-600 mt-1">${item.thai}</div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function filterVocab() {
+            renderVocabGrid();
+        }
+
+        // Initialize on Load
+        window.onload = function() {
+            showScreen('home-screen');
+        };
+    </script>
+</body>
+</html>
